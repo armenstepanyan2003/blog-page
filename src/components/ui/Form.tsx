@@ -1,17 +1,17 @@
-import { useImperativeHandle, useRef, useState } from "react";
+import React, { useImperativeHandle, useRef, useState } from "react";
+import { FormProps } from "@/constants";
 
-const Form = ({ form, onAdd, initialValues, ref }) => {
+const Form: React.FC<FormProps> = ({ form, onAdd, initialValues, ref }) => {
     const formRef = useRef(null);
 
-        const [errors, setErrors] = useState({});
+        const [errors, setErrors] = useState<Record<string, string>>({});
 
         const handleSubmit = () => {
-            console.log("handleSubmit", formRef.current);
+            if (!formRef.current) return;
 
             const formData = new FormData(formRef.current);
             const dataObject = Object.fromEntries(formData.entries());
-
-            const newErrors = {};
+            const newErrors: Record<string, string> = {};
 
             form.forEach(({ name, label }) => {
                 if (!dataObject[name]) {
@@ -26,7 +26,7 @@ const Form = ({ form, onAdd, initialValues, ref }) => {
             }
         };
 
-        const handleEnterSubmit = (e)=> {
+        const handleEnterSubmit = (e: React.KeyboardEvent<HTMLFormElement>)=> {
             if (e.key === "Enter") {
                 e.preventDefault();
                 handleSubmit();

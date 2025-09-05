@@ -1,8 +1,8 @@
-import { type FC } from 'react';
-import type {DeleteModalProps} from "../../constants";
+import React from "react";
 import Modal from "@/components/ui/Modal";
+import {DeleteModalProps} from "@/constants";
 
-const DeleteModal: FC<DeleteModalProps> = ({ visible, onOk, title,onCancel }) => {
+const DeleteModal: React.FC<DeleteModalProps> = ({ visible, onOk, title,onCancel }) => {
     return (
         <Modal visible={visible} onOk={onOk} onCancel={onCancel}  title={title}>
             <div className="p-2">

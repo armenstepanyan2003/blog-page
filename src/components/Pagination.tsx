@@ -1,6 +1,7 @@
 import React from 'react';
+import {PaginationProps} from "@/constants";
 
-const Pagination = ({ currentPage, onPageChange, totalPages }) => {
+const Pagination: React.FC<PaginationProps> = ({ currentPage, onPageChange, totalPages }) => {
     const onNext = () => {
         onPageChange(currentPage +1);
     }

@@ -1,11 +1,12 @@
 import React, {useRef} from 'react';
 import Modal from "@/components/ui/Modal";
 import Form from "@/components/ui/Form";
+import {AddModalProps, FormField} from "@/constants";
 
-const AddModal = ({ visible, title, onCancel, onAdd }) => {
+const AddModal: React.FC<AddModalProps> = ({ visible, title, onCancel, onAdd }) => {
     const addFormRef = useRef<HTMLFormElement>(null);
 
-    const blogForm = [
+    const blogForm: FormField[] = [
         {
             placeholder: "Enter title",
             name: "title",

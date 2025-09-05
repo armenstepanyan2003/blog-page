@@ -1,8 +1,9 @@
 import React, {useRef} from 'react';
 import Modal from "@/components/ui/Modal";
 import Form from "@/components/ui/Form";
+import {EditModalProps} from "@/constants";
 
-const EditModal = ({ title, onOk, visible, onCancel, blog }) => {
+const EditModal: React.FC<EditModalProps> = ({ title, onOk, visible, onCancel, blog }) => {
     const editFormRef = useRef<HTMLFormElement>(null);
 
     const blogForm = [

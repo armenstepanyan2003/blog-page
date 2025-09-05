@@ -1,14 +1,15 @@
 'use client'
 
-import React, {useRef} from 'react';
+import React from 'react';
 import {useState} from "react";
 import Button from "@/components/ui/Button";
 import DeleteModal from "@/components/DeleteModal";
 import {useRouter} from "next/navigation";
 import apiService from "@/services/api.service";
 import EditModal from "@/components/EditModal";
+import type { BlogProps, Blog } from "@/constants";
 
-const Blog = ({blog}) => {
+const Blog: React.FC<BlogProps> = ({blog}) => {
 
     const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
     const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -22,7 +23,8 @@ const Blog = ({blog}) => {
         setIsDeleteModalVisible(false);
     }
 
-    const handleOkDelete = async () => {
+    const handleOkDelete = async (): Promise<void> => {
+        if (!blog.id) return
         await apiService.deleteBlog(blog.id);
         setIsDeleteModalVisible(false);
         router.push("/");
@@ -32,8 +34,9 @@ const Blog = ({blog}) => {
         setIsEditModalVisible(false);
     }
 
-    const handleOkEdit = async (values) => {
-        await apiService.editBlog(blog.id,values);
+    const handleOkEdit = async (values: Blog): Promise<void> => {
+        if (!blog.id) return
+        await apiService.editBlog(blog.id, values);
         setIsEditModalVisible(false);
         router.refresh();
     }

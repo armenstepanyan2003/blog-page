@@ -2,8 +2,9 @@
 
 import React from 'react';
 import Link from 'next/link';
+import {Blog} from "@/constants";
 
-const BlogCard = ({ id, author, title, description }) => {
+const BlogCard: React.FC<Blog> = ({ id, author, title, description }) => {
     return (
         <Link href={`/blogs/${id}`}>
             <div className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-transform transform hover:-translate-y-1 hover:scale-105 duration-300 flex flex-col gap-3 border border-gray-100">

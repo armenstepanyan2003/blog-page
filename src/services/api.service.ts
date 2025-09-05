@@ -1,10 +1,11 @@
 import {apiUrls} from "@/config/apiConfig";
+import {Blog} from "@/constants";
 
 class ApiService {
     constructor() {
     };
 
-    async getNews(): Promise<any[]> {
+    async getNews(): Promise<Blog[]> {
         const finalUrl = `${apiUrls.MOCK_API}/blogs`;
 
         try {
@@ -18,7 +19,7 @@ class ApiService {
         }
     };
 
-    async getBlogById(id): Promise<any[]> {
+    async getBlogById(id: string): Promise<Blog> {
         const finalUrl = `${apiUrls.MOCK_API}/blogs/${id}`;
 
         try {
@@ -32,7 +33,7 @@ class ApiService {
         }
     };
 
-    async deleteBlog(id): Promise<any[]> {
+    async deleteBlog(id: string): Promise<Blog[]> {
         const finalUrl = `${apiUrls.MOCK_API}/blogs/${id}`;
 
         try {
@@ -46,7 +47,7 @@ class ApiService {
         }
     };
 
-    async editBlog(id,blog): Promise<any[]> {
+    async editBlog(id: string, blog: Blog): Promise<Blog[]> {
         const finalUrl = `${apiUrls.MOCK_API}/blogs/${id}`;
 
         try {
@@ -60,7 +61,7 @@ class ApiService {
         }
     };
 
-    async addBlog(blog): Promise<any[]> {
+    async addBlog(blog: Blog) {
         const finalUrl = `${apiUrls.MOCK_API}/blogs`;
 
         try {

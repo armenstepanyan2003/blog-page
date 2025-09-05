@@ -1,23 +1,21 @@
 'use client'
 
-import {use, useMemo, useState} from "react";
+import React, {use, useMemo, useState} from "react";
 import BlogCard from "@/components/BlogCard";
 import Pagination from "@/components/Pagination";
 import AddModal from "@/components/AddModal";
 import Button from "@/components/ui/Button";
 import apiService from "@/services/api.service";
-import blog from "@/components/Blog";
-import {useRouter} from "next/navigation";
+import {Blog} from "@/constants";
 
 const itemsPerPage = 3;
 
 const Blogs = ({ dataPromise }: { dataPromise: Promise<any[]>}) => {
     const data = use(dataPromise);
-    const [blogs, setBlogs] = useState(data);
+    const [blogs, setBlogs] = useState<Blog[]>(data);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [search, setSearch] = useState("");
-    const [isAddModalVisible, setIsAddModalVisible] = useState(false);
-    const router = useRouter();
+    const [search, setSearch] = useState<string>("");
+    const [isAddModalVisible, setIsAddModalVisible] = useState<boolean>(false);
 
     const lastItem = useMemo(() => {
         return currentPage * itemsPerPage;
@@ -33,7 +31,7 @@ const Blogs = ({ dataPromise }: { dataPromise: Promise<any[]>}) => {
         setCurrentPage(page);
     };
 
-    const handleSearchChange = (e) => {
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
         setCurrentPage(1);
     }
@@ -54,7 +52,7 @@ const Blogs = ({ dataPromise }: { dataPromise: Promise<any[]>}) => {
         setIsAddModalVisible(false);
     }
 
-    const handleAddBlog = async (values) => {
+    const handleAddBlog = async (values: Blog) => {
         const blog = await apiService.addBlog(values);
         setIsAddModalVisible(false);
 

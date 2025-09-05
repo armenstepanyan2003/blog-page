@@ -1,7 +1,8 @@
 import * as React from "react";
 import {createPortal} from "react-dom";
+import {ModalProps} from "@/constants";
 
-const Modal = ({ visible, title, onOk, onCancel, children }) => {
+const Modal: React.FC<ModalProps> = ({ visible, title, onOk, onCancel, children }) => {
 
     return (
         <>
