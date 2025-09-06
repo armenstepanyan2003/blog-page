@@ -7,6 +7,7 @@ import AddModal from "@/components/AddModal";
 import Button from "@/components/ui/Button";
 import apiService from "@/services/api.service";
 import {Blog} from "@/constants";
+import EmptyData from "@/components/ui/EmptyData";
 
 const itemsPerPage = 3;
 
@@ -55,7 +56,6 @@ const Blogs = ({ dataPromise }: { dataPromise: Promise<any[]>}) => {
     const handleAddBlog = async (values: Blog) => {
         const blog = await apiService.addBlog(values);
         setIsAddModalVisible(false);
-
         setBlogs(prevState => [blog, ...prevState]);
     }
 
@@ -75,16 +75,24 @@ const Blogs = ({ dataPromise }: { dataPromise: Promise<any[]>}) => {
                 <Button title="Add Blog" onClick={openAddModal}/>
             </div>
 
-            <div className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {currentBlog.map((item) => (
-                    <BlogCard
-                        key={item.id}
-                        id={item.id}
-                        author={item.author}
-                        title={item.title}
-                        description={item.description}
-                    />
-                ))}
+            <div className="w-full max-w-5xl">
+                {currentBlog.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {currentBlog.map((item) => (
+                            <BlogCard
+                                key={item.id}
+                                id={item.id}
+                                author={item.author}
+                                title={item.title}
+                                description={item.description}
+                            />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="flex justify-center mt-12">
+                        <EmptyData />
+                    </div>
+                )}
             </div>
             <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
             <AddModal visible={isAddModalVisible} title="Add Blog" onCancel={closeAddModal} onAdd={handleAddBlog}/>
