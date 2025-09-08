@@ -7,7 +7,6 @@ class ApiService {
 
     async getNews(): Promise<Blog[]> {
         const finalUrl = `${apiUrls.MOCK_API}/blogs`;
-
         try {
             const res = await fetch(finalUrl);
             const data = await res.json();
@@ -21,7 +20,6 @@ class ApiService {
 
     async getBlogById(id: string): Promise<Blog> {
         const finalUrl = `${apiUrls.MOCK_API}/blogs/${id}`;
-
         try {
             const res = await fetch(finalUrl);
             const data = await res.json();
@@ -80,4 +78,3 @@ class ApiService {
 const apiService = new ApiService();
 
 export default apiService;
-
