@@ -1,10 +1,12 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import Modal from "@/components/ui/Modal";
 import Form from "@/components/ui/Form";
 import {EditModalProps} from "@/constants";
+import Loading from "@/components/ui/Loading";
 
-const EditModal: React.FC<EditModalProps> = ({ title, onOk, visible, onCancel, blog }) => {
+const EditModal: React.FC<EditModalProps> = ({ title, onEdit, visible, onCancel, blog }) => {
     const editFormRef = useRef<HTMLFormElement>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const blogForm = [
         {
@@ -27,19 +29,28 @@ const EditModal: React.FC<EditModalProps> = ({ title, onOk, visible, onCancel, b
         }
     ];
 
+    const handleOk = async () => {
+        setIsLoading(true);
+        await editFormRef?.current?.submit();
+        setIsLoading(false);
+    }
+
     return (
         <Modal
             title={title}
             visible={visible}
             onCancel={onCancel}
-            onOk={() => editFormRef?.current?.submit()}
+            onOk={handleOk}
+            isLoading={isLoading}
         >
             <Form
                 ref={editFormRef}
                 form={blogForm}
-                onAdd={onOk}
+                onAdd={onEdit}
                 initialValues={blog}
             />
+
+            {isLoading && <Loading text="Adding..." size="small" />}
         </Modal>
     );
 };

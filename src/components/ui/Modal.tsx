@@ -2,7 +2,7 @@ import * as React from "react";
 import {createPortal} from "react-dom";
 import {ModalProps} from "@/constants";
 
-const Modal: React.FC<ModalProps> = ({ visible, title, onOk, onCancel, children }) => {
+const Modal: React.FC<ModalProps> = ({ visible, title, onOk, onCancel, isLoading, children }) => {
 
     return (
         <>
@@ -20,7 +20,11 @@ const Modal: React.FC<ModalProps> = ({ visible, title, onOk, onCancel, children 
                                 </div>
                                 <div className="flex justify-end gap-4 p-5 border-t border-gray-200">
                                     <button onClick={onCancel} className="px-4 py-2 border rounded hover:bg-gray-100">Cancel</button>
-                                    <button onClick={onOk} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">OK</button>
+                                    <button onClick={onOk}
+                                            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-300"
+                                            disabled={isLoading}>
+                                        Ok
+                                    </button>
                                 </div>
                             </div>
                         </div>

@@ -57,8 +57,8 @@ const Blog: React.FC<BlogProps> = ({blog}) => {
                 <Button title="Delete" onClick={openDeleteModal}/>
             </div>
 
-            <DeleteModal visible={isDeleteModalVisible} onCancel={closeDeleteModal} onOk={handleOkDelete} title="Delete Blog"/>
-            <EditModal visible={isEditModalVisible} onOk={handleOkEdit} onCancel={closeEditModal} title="Edit Blog" blog={blog} />
+            <DeleteModal visible={isDeleteModalVisible} onCancel={closeDeleteModal} onOk={handleOkDelete} title="Delete Blog" />
+            <EditModal visible={isEditModalVisible} onEdit={handleOkEdit} onCancel={closeEditModal} title="Edit Blog" blog={blog} />
         </div>
     );
 };

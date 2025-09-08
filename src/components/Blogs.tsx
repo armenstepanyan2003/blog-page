@@ -1,21 +1,25 @@
 'use client'
 
-import React, {use, useMemo, useState} from "react";
+import React, {use, useMemo, useRef, useState} from "react";
 import BlogCard from "@/components/BlogCard";
 import Pagination from "@/components/Pagination";
 import AddModal from "@/components/AddModal";
 import Button from "@/components/ui/Button";
+import Loading from "@/components/ui/Loading";
+import EmptyData from "@/components/ui/EmptyData";
 import apiService from "@/services/api.service";
 import {Blog} from "@/constants";
-import EmptyData from "@/components/ui/EmptyData";
 
 const itemsPerPage = 3;
 
 const Blogs = ({ dataPromise }: { dataPromise: Promise<any[]> }) => {
+    const inputRef = useRef<HTMLInputElement>(null);
+    const timerRef = useRef<HTMLInputElement>(null);
     const data = use(dataPromise);
     const [blogs, setBlogs] = useState<Blog[]>(data);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [search, setSearch] = useState<string>("");
+    const [isSearching, setIsSearching] = useState<boolean>(false);
     const [isAddModalVisible, setIsAddModalVisible] = useState<boolean>(false);
 
     const lastItem = useMemo(() => {
@@ -24,26 +28,36 @@ const Blogs = ({ dataPromise }: { dataPromise: Promise<any[]> }) => {
     const firstItem = useMemo(() => {
         return lastItem - itemsPerPage
     }, [lastItem]);
+    const searchingBlogs = blogs.filter(blog => {
+        return blog.title.toLowerCase().includes(search.toLowerCase());
+    });
     const totalPages = useMemo(() => {
-        return Math.ceil(blogs.length / itemsPerPage);
-    }, [blogs.length]);
+        return Math.ceil(searchingBlogs.length / itemsPerPage);
+    }, [searchingBlogs.length]);
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
 
-    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearch(e.target.value);
+    const handleSearchChange = () => {
+        if (timerRef.current) {
+            clearTimeout(timerRef.current);
+        }
+
+        setIsSearching(true);
+
+        timerRef.current = setTimeout(() => {
+            const value = inputRef?.current?.value ?? "";
+            setSearch(value);
+            setIsSearching(false)
+        },500);
+
         setCurrentPage(1);
     }
 
-    const searchingBlogs = blogs.filter(blog => {
-        return blog.title.toLowerCase().includes(search.toLowerCase());
-    });
-
     const currentBlog = useMemo(() => {
         return searchingBlogs.slice(firstItem, lastItem);
-    }, [searchingBlogs,firstItem, lastItem]);
+    }, [searchingBlogs, firstItem, lastItem]);
 
     const openAddModal = () => {
         setIsAddModalVisible(true);
@@ -64,9 +78,9 @@ const Blogs = ({ dataPromise }: { dataPromise: Promise<any[]> }) => {
             <h1 className="text-4xl font-extrabold text-sky-900 mb-12 text-center">Latest News</h1>
             <div className="flex flex-col gap-5">
                 <input
+                    ref={inputRef}
                     type="search"
                     onChange={handleSearchChange}
-                    value={search ?? ""}
                     placeholder="Search..."
                     className="w-full max-w-md px-4 py-2 rounded-2xl border border-gray-300 shadow-sm
                     focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
@@ -74,6 +88,8 @@ const Blogs = ({ dataPromise }: { dataPromise: Promise<any[]> }) => {
                 />
                 <Button title="Add Blog" onClick={openAddModal} />
             </div>
+
+            {isSearching && <Loading text="Searching..." size="small" />}
 
             <div className="w-full max-w-5xl">
                 {currentBlog.length > 0 ? (
