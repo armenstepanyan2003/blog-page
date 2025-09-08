@@ -53,8 +53,8 @@ const Blog: React.FC<BlogProps> = ({blog}) => {
                 <p className="text-gray-700 leading-relaxed">{blog.description}</p>
             </div>
             <div className="flex flex-col gap-5">
-                <Button title = "Edit" onClick={openEditModal}/>
-                <Button title = "Delete" onClick={openDeleteModal}/>
+                <Button title="Edit" onClick={openEditModal}/>
+                <Button title="Delete" onClick={openDeleteModal}/>
             </div>
 
             <DeleteModal visible={isDeleteModalVisible} onCancel={closeDeleteModal} onOk={handleOkDelete} title="Delete Blog"/>

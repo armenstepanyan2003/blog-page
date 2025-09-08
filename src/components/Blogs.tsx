@@ -11,7 +11,7 @@ import EmptyData from "@/components/ui/EmptyData";
 
 const itemsPerPage = 3;
 
-const Blogs = ({ dataPromise }: { dataPromise: Promise<any[]>}) => {
+const Blogs = ({ dataPromise }: { dataPromise: Promise<any[]> }) => {
     const data = use(dataPromise);
     const [blogs, setBlogs] = useState<Blog[]>(data);
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -72,7 +72,7 @@ const Blogs = ({ dataPromise }: { dataPromise: Promise<any[]>}) => {
                     focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
                     transition duration-300 placeholder-gray-400"
                 />
-                <Button title="Add Blog" onClick={openAddModal}/>
+                <Button title="Add Blog" onClick={openAddModal} />
             </div>
 
             <div className="w-full max-w-5xl">
@@ -94,8 +94,8 @@ const Blogs = ({ dataPromise }: { dataPromise: Promise<any[]>}) => {
                     </div>
                 )}
             </div>
-            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
-            <AddModal visible={isAddModalVisible} title="Add Blog" onCancel={closeAddModal} onAdd={handleAddBlog}/>
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+            <AddModal visible={isAddModalVisible} title="Add Blog" onCancel={closeAddModal} onAdd={handleAddBlog} />
         </div>
     );
 };

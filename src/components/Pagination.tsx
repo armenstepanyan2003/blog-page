@@ -3,7 +3,7 @@ import {PaginationProps} from "@/constants";
 
 const Pagination: React.FC<PaginationProps> = ({ currentPage, onPageChange, totalPages }) => {
     const onNext = () => {
-        onPageChange(currentPage +1);
+        onPageChange(currentPage + 1);
     }
 
     const onPrevious = () => {
@@ -18,10 +18,10 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, onPageChange, tota
                 <button
                     key={i}
                     onClick={() => onPageChange(i)}
-                    className={`px-4 py-2 rounded-lg border cursor-pointer ${
+                    className={`px-4 py-2 rounded-lg border cursor-pointer transition ${
                         currentPage === i ? "bg-blue-500 text-white border-blue-500"
                             : "bg-white text-gray-700 hover:bg-gray-100 border-gray-300"
-                    } transition`}
+                    }`}
                 >
                     {i}
                 </button>
