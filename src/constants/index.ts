@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface ButtonProps {
     btnType?: "primary" | "default" | "dashed" | "text" | "link";
     size?: "large" | "default" | "small";
@@ -17,11 +19,25 @@ export interface PaginationProps {
     onPageChange: (page: number) => void;
 }
 
+export interface Tag {
+    id: string;
+    name: string;
+    color: string;
+}
+
 export interface Blog {
     id?: string;
     title: string;
-    author: string;
     description: string;
+    tags: Tag[];
+    userId: number;
+    user: {
+        firstName: string;
+    };
+    post_likes_count: number;
+    isFollowing: boolean;
+    isLiked: number;
+    updateFollowings: (userId: number, following: boolean) => void;
 }
 
 export interface BlogProps {
@@ -73,7 +89,39 @@ export interface FormProps {
     ref: React.RefObject<HTMLFormElement | null>;
 }
 
+export interface User {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+}
+
 
 export interface BlogPageProps {
-    params: { id: string };
+    params: { id: string; title: string };
+}
+
+export interface AuthWrapperProps {
+    children: ReactNode;
+}
+
+export interface LayoutProps {
+    children: ReactNode;
+}
+
+export interface Post {
+    id: number | string;
+    title: string;
+    description: string;
+    user: User;
+}
+
+export interface AuthorResponse {
+    author: {
+        name: string;
+        lastname: string;
+        email: string;
+        phone?: string;
+    };
+    posts: Post[];
 }

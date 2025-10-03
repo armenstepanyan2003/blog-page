@@ -1,5 +1,5 @@
 import React from 'react';
-import {PaginationProps} from "@/constants";
+import { PaginationProps } from "@/constants";
 
 const Pagination: React.FC<PaginationProps> = ({ currentPage, onPageChange, totalPages }) => {
     const onNext = () => {
@@ -36,7 +36,8 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, onPageChange, tota
         <div className="flex justify-end gap-6 mt-4 items-center">
             {currentPage > 1 && (
                 <button
-                    className="border border-gray-300 bg-white hover:bg-gray-100 py-2 px-5 rounded-xl cursor-pointer transition"
+                    className="border border-gray-300 bg-white hover:bg-gray-100 py-2 px-5
+                        rounded-xl cursor-pointer transition"
                     onClick={onPrevious}
                 >
                     Previous
@@ -45,7 +46,8 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, onPageChange, tota
             {renderPageNumbers()}
             {currentPage < totalPages && (
                 <button
-                    className="border border-gray-300 bg-white hover:bg-gray-100 py-2 px-5 rounded-xl cursor-pointer transition"
+                    className="border border-gray-300 bg-white hover:bg-gray-100 py-2
+                        px-5 rounded-xl cursor-pointer transition"
                     onClick={onNext}
                 >
                     Next

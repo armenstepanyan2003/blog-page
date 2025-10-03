@@ -1,7 +1,10 @@
 import React, { useImperativeHandle, useRef, useState } from "react";
 import { FormProps } from "@/constants";
 
-const Form: React.FC<FormProps> = ({ form, onAdd, initialValues, ref }) => {
+const
+
+
+    Form: React.FC<FormProps> = ({ form, onAdd, initialValues, ref }) => {
     const formRef = useRef(null);
 
     const [errors, setErrors] = useState<Record<string, string>>({});
@@ -22,7 +25,17 @@ const Form: React.FC<FormProps> = ({ form, onAdd, initialValues, ref }) => {
         setErrors(newErrors);
 
         if (Object.keys(newErrors).length === 0) {
-            await onAdd(dataObject);
+            const res = await onAdd(dataObject);
+
+            if (res?.error) {
+                const newErrors: Record<string, string> = {};
+                res.error.details.forEach((err: { key: string; message: string }) => {
+                    newErrors[err.key] = err.message;
+                });
+
+                setErrors(newErrors);
+                return;
+            }
         }
     };
 

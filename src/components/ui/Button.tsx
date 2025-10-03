@@ -1,4 +1,4 @@
-import {ButtonProps} from "@/constants";
+import { ButtonProps } from "@/constants";
 
 const typeStyles = {
     primary:
