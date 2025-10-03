@@ -1,53 +1,33 @@
-'use client'
-
 import React from 'react';
 import Link from "next/link";
+import {usePathname} from "next/navigation";
 
 const SideBar = () => {
+    const path = usePathname();
+
+    const links = [
+        { href: "/posts", label: "Posts" },
+        { href: "/users", label: "Users" },
+        { href: "/posts/followersPosts", label: "Followers Posts" },
+        { href: "/posts/likedPosts", label: "Liked Posts" },
+        { href: "/users/followers", label: "Followers" },
+        { href: "/users/following", label: "Following" },
+    ];
+
     return (
-        <div className="bg-sky-300 w-64 h-full min-h-screen text-white p-4">
-            <div className="flex flex-col gap-4">
-                <Link
-                    href="/posts"
-                    className="border border-blue-500 bg-blue-500 text-white rounded-md py-2 px-5 hover:cursor-pointer hover:opacity-70 transition duration-300 [aria-current='page']:bg-gray-500 [aria-current='page']:text-white"
-                >
-                    Posts
-                </Link>
-
-                <Link
-                    href="/users"
-                    className="border border-blue-500 bg-blue-500 text-white rounded-md py-2 px-5 hover:cursor-pointer hover:opacity-70 transition duration-300 [aria-current='page']:bg-gray-500 [aria-current='page']:text-white"
-                >
-                    Users
-                </Link>
-
-                <Link
-                    href="/posts/followersPosts"
-                    className="border border-blue-500 bg-blue-500 text-white rounded-md py-2 px-5 hover:cursor-pointer hover:opacity-70 transition duration-300 [aria-current='page']:bg-gray-500 [aria-current='page']:text-white"
-                >
-                    Followers Posts
-                </Link>
-
-                <Link
-                    href="/posts/likedPosts"
-                    className="border border-blue-500 bg-blue-500 text-white rounded-md py-2 px-5 hover:cursor-pointer hover:opacity-70 transition duration-300 [aria-current='page']:bg-gray-500 [aria-current='page']:text-white"
-                >
-                    Liked Posts
-                </Link>
-
-                <Link
-                    href="/users/followers"
-                    className="border border-blue-500 bg-blue-500 text-white rounded-md py-2 px-5 hover:cursor-pointer hover:opacity-70 transition duration-300 [aria-current='page']:bg-gray-500 [aria-current='page']:text-white"
-                >
-                    Followers
-                </Link>
-
-                <Link
-                    href="/users/following"
-                    className="border border-blue-500 bg-blue-500 text-white rounded-md py-2 px-5 hover:cursor-pointer hover:opacity-70 transition duration-300 [aria-current='page']:bg-gray-500 [aria-current='page']:text-white"
-                >
-                    Following
-                </Link>
+        <div className="bg-white w-64 h-full min-h-screen border-r border-gray-400 p-4">
+            <div className="flex flex-col gap-2">
+                {links.map(link => {
+                    const isActive = path === link.href;
+                    const classes = isActive
+                        ? "w-full text-left py-2 px-4 rounded-md bg-gray-200 text-black font-semibold"
+                        : "w-full text-left py-2 px-4 rounded-md transition duration-200 hover:bg-gray-100 hover:text-black";
+                    return (
+                        <Link key={link.href} href={link.href} className={classes}>
+                            {link.label}
+                        </Link>
+                    );
+                })}
             </div>
         </div>
     );

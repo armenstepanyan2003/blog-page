@@ -38,15 +38,14 @@ export default function FollowingPage() {
     }, []);
 
     return (
-        <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-sky-50 to-sky-100 p-6">
+        <div className="flex flex-col items-center w-full bg-gray-100 py-10 px-4 sm:px-6 lg:px-8">
             <h1 className="text-4xl font-extrabold text-sky-700 mb-6">Followers Posts</h1>
-            <BackButton />
 
             <div className="w-full max-w-3xl mt-6 grid gap-6 sm:grid-cols-1 md:grid-cols-2">
                 {posts.map((post) => (
                     <div
                         key={post.id}
-                        className="bg-white p-6 shadow-lg rounded-2xl hover:shadow-2xl transition-shadow duration-300 space-y-2"
+                        className="bg-white p-6 shadow-lg rounded-2xl space-y-2"
                     >
                         <h3 className="text-xl font-bold text-sky-700 line-clamp-2">{post.title}</h3>
                         <p className="text-gray-400 text-sm italic">

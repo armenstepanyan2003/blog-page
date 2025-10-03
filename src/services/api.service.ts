@@ -1,14 +1,13 @@
 import { apiUrls } from "@/config/apiConfig";
 import { Blog } from "@/constants";
 import { getAccessToken } from "@/utils/actions";
-import page from "@/app/login/page";
 
 class ApiService {
     constructor() {
     };
 
     async deleteBlog(id: string): Promise<Blog[]> {
-        const finalUrl = `${apiUrls.MOCK_API}/posts/${id}`;
+        const finalUrl = `${apiUrls.MOCK_API}/users/${id}`;
         const token = localStorage.getItem('token');
 
         try {
@@ -47,6 +46,34 @@ class ApiService {
         } catch (error) {
             console.log(`Edit Blog Error ${error}`);
             throw new Error('Failed to edit blog');
+        }
+    };
+
+    async editProfile(id: string, userData: { firstName: string, lastName: string, email: string, phone: string }) {
+        const finalUrl = `${apiUrls.MOCK_API}/users/${id}`;
+        const token = localStorage.getItem('token');
+
+        try {
+            const res = await fetch(finalUrl, {
+                method: "PUT",
+                body: JSON.stringify(userData),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            const data = await res.json();
+            if (!res.ok) {
+                if (data.error?.details) {
+                    return {
+                        error: data.error
+                    };
+                }
+            }
+            return data;
+        } catch (error) {
+            console.log(`Edit Profile Error ${error}`);
+            throw new Error('Failed to edit Profile');
         }
     };
 

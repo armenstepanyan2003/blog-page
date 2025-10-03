@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from "next/navigation";
+import { io } from "socket.io-client";
 import apiService from "@/services/api.service";
 import BackButton from "@/components/BackButton";
 
@@ -12,6 +13,21 @@ export default function ChatPage() {
     const [newMessage, setNewMessage] = useState("");
     const [chatUser, setChatUser] = useState(null);
     const inputRef = useRef<HTMLInputElement>(null);
+    const socketRef = useRef(null);
+
+    useEffect(() => {
+        socketRef.current = io(process.env.NEXT_PUBLIC_API_URL)
+
+        socketRef.current.on("connect", () => {
+            console.log("Socket connected", socketRef.current.id)
+        });
+
+        socketRef.current.on("receive_message", (data) => {
+            setMessages(prev => [...prev, data])
+        });
+
+        return () => socketRef.current.disconnect();
+    }, []);
 
     useEffect(() => {
         const fetchData  = async () => {
@@ -35,8 +51,7 @@ export default function ChatPage() {
                 receiverId: userId,
                 content: newMessage
             });
-
-            setMessages(prev => [...prev, sentMessage]);
+            socketRef.current.emit("send_message", sentMessage);
             setNewMessage("");
         } catch (error) {
             console.log(error);
@@ -45,7 +60,7 @@ export default function ChatPage() {
     }
 
     return (
-        <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-sky-50 to-sky-100 p-6 gap-5">
+        <div className="flex flex-col items-center bg-gray-100 p-6 gap-5">
 
             <h1 className="text-2xl font-bold text-sky-700 mb-4">
                 {chatUser ? `Chat with ${chatUser.firstName}` : "Chat"}
@@ -85,6 +100,11 @@ export default function ChatPage() {
                         value={newMessage}
                         ref={inputRef}
                         onChange={(e) => setNewMessage(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                                handleSend();
+                            }
+                        }}
                     />
                     <button
                         onClick={handleSend}

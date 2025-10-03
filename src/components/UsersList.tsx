@@ -6,7 +6,7 @@ import Pagination from "@/components/Pagination";
 import Link from "next/link";
 import {useSearchProvider} from "@/providers/SearchProvider";
 
-const AllUsersPage = () => {
+const UsersList = () => {
     const [users, setUsers] = useState([])
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
@@ -46,8 +46,8 @@ const AllUsersPage = () => {
             const following = data.action === "follow";
 
             setUsers(prev => prev.map(user =>
-                user.id === userId ? { ...user, isFollowing: following } : user
-              )
+                    user.id === userId ? { ...user, isFollowing: following } : user
+                )
             );
         } catch (error) {
             console.log(error);
@@ -55,11 +55,7 @@ const AllUsersPage = () => {
     };
 
     return (
-        <div className="flex flex-col items-center w-full bg-gray-100 py-10 px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col items-center mb-6 space-y-4">
-                <h1 className="text-4xl font-extrabold text-sky-700">Users</h1>
-            </div>
-
+        <div className="flex flex-col items-center w-full bg-gray-200 py-10 px-4 sm:px-6 lg:px-8">
             {users.length > 0 ? (
                 <div className="grid grid-cols-1 gap-6">
                     {users.map((user) => {
@@ -75,9 +71,7 @@ const AllUsersPage = () => {
                                     </div>
 
                                     <h2 className="text-lg font-semibold text-gray-800">
-                                        <Link
-                                            href={`/users/author/${user.slug}`}
-                                        >
+                                        <Link href={`/posts/author/${user.id}`}>
                                             {user.firstName} {user.lastName}
                                         </Link>
                                     </h2>
@@ -111,4 +105,4 @@ const AllUsersPage = () => {
     );
 };
 
-export default AllUsersPage;
+export default UsersList;

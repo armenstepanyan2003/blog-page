@@ -4,8 +4,8 @@ import { FC } from "react";
 import dynamic from "next/dynamic";
 import BackButton from "@/components/BackButton";
 
-const fetchBlog = async (id: string) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/posts/${id}`, {
+const fetchBlog = async (slug: string) => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/posts/${slug}`, {
         headers: {
             "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
@@ -22,11 +22,11 @@ const Blog = dynamic(() => import("@/components/Blog"), {
     </div>
 });
 
-const BlogPageWrapper: FC<{ id: string }> = ({id}) => {
-    const res = fetchBlog(id);
+const BlogPageWrapper: FC<{ slug: string }> = ({slug}) => {
+    const res = fetchBlog(slug);
 
     return (
-        <div className="min-h-screen flex flex-col gap-4 items-center py-12 px-6 bg-sky-50">
+        <div className="flex flex-col gap-4 items-center py-12 px-6 bg-gray-100">
             <BackButton/>
             <Blog blogPromise={res}/>
         </div>

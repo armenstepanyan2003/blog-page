@@ -66,7 +66,7 @@ const Blogs = () => {
     const handleAddBlog = async (values: Blog) => {
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch("http://localhost:5000/posts", {
+            const res = await fetch("http://localhost:5000/users", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -92,27 +92,21 @@ const Blogs = () => {
     const openAddModal = () => setIsAddModalVisible(true);
     const closeAddModal = () => setIsAddModalVisible(false);
 
-    const updateFollowings = (authorId: number, unFollow: boolean) => {
-        setBlogs(prevState => prevState.map(blog => blog.userId === authorId ? ({
-            ...blog,
-            isFollowing: unFollow
-        }) : blog));
-    }
     return (
-        <div className="min-h-screen bg-gradient-to-b from-sky-50
-            to-sky-100 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center gap-8"
-        >
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-sky-900 text-center">
+        <div className="flex flex-col items-center w-full bg-gray-100 py-10 px-4 sm:px-6 lg:px-8">
+
+            <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-8 text-center">
                 Latest Posts
             </h1>
-            <div className="w-full max-w-3xl flex flex-col gap-4 items-center">
+
+            <div className="flex flex-col gap-4 items-center w-full max-w-3xl mb-8">
                 <input
                     type="text"
                     placeholder="Search blogs..."
                     value={search}
                     onChange={handleSearch}
-                    className="w-full sm:flex-1 px-4 py-2 rounded-xl border border-gray-300 shadow-sm
-                        focus:outline-none focus:ring-2 focus:ring-blue-500 transition placeholder-gray-400"
+                    className="w-full sm:flex-1 px-4 py-2 rounded-xl border border-gray-300 shadow-sm text-gray-800
+                        placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition"
                 />
                 <Button title="Add Blog" btnType="primary" onClick={openAddModal} />
             </div>
@@ -122,17 +116,13 @@ const Blogs = () => {
             ) : blogs?.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
                     {blogs.map(blog => (
-                        <BlogCard
-                            key={blog.id}
-                            {...blog}
-                            updateFollowings={updateFollowings}
-                            isLiked={blog.isLiked}
-                        />
+                        <BlogCard key={blog.id} {...blog} isLiked={blog.isLiked} />
                     ))}
                 </div>
             ) : (
-                <EmptyData />
+                <EmptyData text="No blogs found." />
             )}
+
             <Pagination
                 currentPage={page}
                 totalPages={totalPages}

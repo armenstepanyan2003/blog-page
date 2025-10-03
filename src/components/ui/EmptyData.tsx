@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const EmptyData = ({src = "/assets/emptyData.png", label = "No Data"}) => {
     return (
-        <div className="flex flex-col items-center justify-center gap-2 bg-gradient-to-b from-sky-50 to-sky-100 p-6">
+        <div className="flex flex-col items-center justify-center gap-2 bg-gray-100 p-6">
             <Image
                 src={src}
                 alt="Empty Data"

@@ -8,7 +8,7 @@ import Link from "next/link";
 
 const Register = () => {
     const router = useRouter();
-    const [error, setError] = useState<string>("");
+    const [error, setError] = useState<{ [key: string]: string }>({});
     const registerRef = useRef<HTMLFormElement>(null);
 
     const handleOk = async () => {
@@ -17,9 +17,9 @@ const Register = () => {
 
     const registerForm = [
         {
-            placeholder: "Enter Name",
-            name: "name",
-            label: "Name",
+            placeholder: "Enter FirstName",
+            name: "firstName",
+            label: "FirstName",
             type: "text",
         },
         {
@@ -38,7 +38,7 @@ const Register = () => {
 
     const handleRegister = async (formData) => {
         try {
-            setError("")
+            setError({})
             const res = await fetch(`http://localhost:5000/auth/register`, {
                 method: "POST",
                 headers:  { "Content-Type": "application/json" },
@@ -50,7 +50,15 @@ const Register = () => {
             if (res.ok) {
                 router.push("/login");
             } else  {
-                setError(data.error || "Something went wrong");
+                if (data.error?.details) {
+                    const newErrors: { [key: string]: string } = {};
+                    data.error.details.forEach((err: any) => {
+                        newErrors[err.key] = err.message;
+                    });
+                    setError(newErrors);
+            } else {
+                    setError({ general: data.message || "Something went wrong" });
+                }
             }
 
         } catch (error) {
@@ -59,10 +67,16 @@ const Register = () => {
     }
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gradient-to-b from-sky-100 to-sky-300">
+        <div className="flex justify-center items-center min-h-screen bg-gray-100">
             <div className="bg-white shadow-2xl rounded-2xl p-10 w-full max-w-md">
                 <h1 className="text-3xl font-bold text-center mb-6 text-blue-800">REGISTER HERE</h1>
-                {error && <p className="text-red-600 mb-4 text-center">{error}</p>}
+                {Object.keys(error).length > 0 && (
+                    <div className="text-red-600 mb-4 text-center space-y-1">
+                        {Object.values(error).map((msg, i) => (
+                            <p key={i}>{msg}</p>
+                        ))}
+                    </div>
+                )}
                 <Form
                     form={registerForm}
                     onAdd={handleRegister}

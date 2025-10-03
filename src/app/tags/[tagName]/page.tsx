@@ -12,7 +12,7 @@ export default async function TagPage({params}: Props) {
     const currentTag = blogs.flatMap(blog => blog.tags).find(tag => tag.name === tagName);
 
     return (
-        <div className="min-h-screen flex flex-col gap-6 items-center py-12 px-6 bg-sky-50">
+        <div className="flex flex-col gap-6 items-center py-12 px-6 bg-gray-100">
             {currentTag && (
                 <span
                     className="px-4 py-1 rounded-full text-white text-sm font-semibold shadow-md"
@@ -31,7 +31,7 @@ export default async function TagPage({params}: Props) {
                     {blogs.map((blog) => (
                         <div
                             key={blog.id}
-                            className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-transform transform hover:-translate-y-1 hover:scale-105 duration-300 flex flex-col gap-3 border border-gray-100"
+                            className="bg-white rounded-2xl shadow-lg p-6 flex flex-col gap-3 border border-gray-100"
                         >
                             <h3 className="text-xl font-bold text-sky-700 line-clamp-2">
                                 {blog.title}

@@ -42,7 +42,7 @@ const Blog = ({blogPromise}) => {
         setIsEditModalVisible(false);
     }
 
-    const handleOkEdit = async (values: Blog): Promise<ANY> => {
+    const handleOkEdit = async (values: Blog) => {
         if (!blog.id) return
         const updated = await apiService.editBlog(blog.id, values);
         if (updated.error) {

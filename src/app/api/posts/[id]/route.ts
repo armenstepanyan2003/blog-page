@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 
 type Params = {
-    params: { id: string };
+    params: Promise<{ id: string }>;
 };
 
 export async function GET(req: Request, { params }: Params) {
-    const { id } = params;
+    const { id } = await params;
 
     try {
         const res = await fetch(`http://localhost:5000/posts/${id}`, {
