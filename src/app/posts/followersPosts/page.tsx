@@ -39,7 +39,7 @@ export default function FollowingPage() {
 
     return (
         <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-sky-50 to-sky-100 p-6">
-            <h1 className="text-4xl font-extrabold text-sky-700 mb-6">Following Page</h1>
+            <h1 className="text-4xl font-extrabold text-sky-700 mb-6">Followers Posts</h1>
             <BackButton />
 
             <div className="w-full max-w-3xl mt-6 grid gap-6 sm:grid-cols-1 md:grid-cols-2">

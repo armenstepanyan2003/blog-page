@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import BackButton from "@/components/BackButton";
 import apiService from "@/services/api.service";
-import { Post } from "@/constants";
 import Pagination from "@/components/Pagination";
 import Loading from "@/components/ui/Loading";
 import EmptyData from "@/components/ui/EmptyData";

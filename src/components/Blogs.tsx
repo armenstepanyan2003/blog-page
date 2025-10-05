@@ -8,7 +8,6 @@ import AddModal from "@/components/AddModal";
 import Button from "@/components/ui/Button";
 import EmptyData from "@/components/ui/EmptyData";
 import type { Blog } from "@/constants";
-import Link from "next/link";
 import { toast } from "react-toastify";
 
 const Blogs = () => {
@@ -93,10 +92,10 @@ const Blogs = () => {
     const openAddModal = () => setIsAddModalVisible(true);
     const closeAddModal = () => setIsAddModalVisible(false);
 
-    const updateFollowings = (authorId: number, following: boolean) => {
+    const updateFollowings = (authorId: number, unFollow: boolean) => {
         setBlogs(prevState => prevState.map(blog => blog.userId === authorId ? ({
             ...blog,
-            isFollowing: following
+            isFollowing: unFollow
         }) : blog));
     }
     return (
@@ -104,39 +103,8 @@ const Blogs = () => {
             to-sky-100 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center gap-8"
         >
             <h1 className="text-4xl sm:text-5xl font-extrabold text-sky-900 text-center">
-                Latest Blogs
+                Latest Posts
             </h1>
-
-            <div className="flex gap-8">
-                <Link
-                    href="/posts/followersPosts"
-                    className="border border-blue-500 bg-blue-500 text-white rounded-md py-2 px-5 hover:cursor-pointer hover:opacity-70 transition duration-300"
-                >
-                    Followers Posts
-                </Link>
-
-                <Link
-                    href="/posts/likedPosts"
-                    className="border border-blue-500 bg-blue-500 text-white rounded-md py-2 px-5 hover:cursor-pointer hover:opacity-70 transition duration-300"
-                >
-                    Liked Posts
-                </Link>
-
-                <Link
-                    href="/users/followers"
-                    className="border border-blue-500 bg-blue-500 text-white rounded-md py-2 px-5 hover:cursor-pointer hover:opacity-70 transition duration-300"
-                >
-                    Followers
-                </Link>
-
-                <Link
-                    href="/users/following"
-                    className="border border-blue-500 bg-blue-500 text-white rounded-md py-2 px-5 hover:cursor-pointer hover:opacity-70 transition duration-300"
-                >
-                    Following
-                </Link>
-            </div>
-
             <div className="w-full max-w-3xl flex flex-col gap-4 items-center">
                 <input
                     type="text"

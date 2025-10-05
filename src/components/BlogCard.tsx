@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Button from "@/components/ui/Button";
 import { Blog } from "@/constants";
 import apiService from "@/services/api.service";
 
@@ -24,36 +23,36 @@ const BlogCard: React.FC<Blog> =({id, user, userId, title, description, tags, is
         setLiked(data.action === 'like');
     }
 
-    const handleToggleFollow = async () => {
-        if (isSelf) return;
-        const token = localStorage.getItem("token");
-
-        if (!token) {
-            return;
-        }
-
-        try {
-            const res = await fetch(`http://localhost:5000/users/followers/${userId}`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-            });
-
-            if (!res.ok) {
-                return;
-            }
-
-            const data = await res.json();
-
-            const following = data.action === "follow";
-            setFollowing(following);
-            updateFollowings(userId, following);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    // const handleToggleFollow = async () => {
+    //     if (isSelf) return;
+    //     const token = localStorage.getItem("token");
+    //
+    //     if (!token) {
+    //         return;
+    //     }
+    //
+    //     try {
+    //         const res = await fetch(`http://localhost:5000/users/followers/${userId}`, {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 "Authorization": `Bearer ${token}`
+    //             },
+    //         });
+    //
+    //         if (!res.ok) {
+    //             return;
+    //         }
+    //
+    //         const data = await res.json();
+    //
+    //         const following = data.action === "follow";
+    //         setFollowing(following);
+    //         updateFollowings(userId, following);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
     return (
         <div className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-transform transform
@@ -93,17 +92,17 @@ const BlogCard: React.FC<Blog> =({id, user, userId, title, description, tags, is
                     </span>
                 ))}
             </div>
-            <button
-                onClick={handleToggleFollow}
-                disabled={isSelf}
-                className={`
-                     px-4 py-2 rounded-lg font-semibold transition-colors duration-200
-                     ${isSelf ? "bg-gray-200 text-gray-400 border border-gray-300 cursor-not-allowed"
-                     : "border border-blue-500 bg-blue-500 text-white rounded-md"
-                }`}
-            >
-                {isSelf ? "Follow" : (isFollowing ? `Following!` : `Follow`)}
-            </button>
+            {/*<button*/}
+            {/*    onClick={handleToggleFollow}*/}
+            {/*    disabled={isSelf}*/}
+            {/*    className={`*/}
+            {/*         px-4 py-2 rounded-lg font-semibold transition-colors duration-200*/}
+            {/*         ${isSelf ? "bg-gray-200 text-gray-400 border border-gray-300 cursor-not-allowed"*/}
+            {/*         : "border border-blue-500 bg-blue-500 text-white rounded-md"*/}
+            {/*    }`}*/}
+            {/*>*/}
+            {/*    {isSelf ? "Follow" : (isFollowing ? `unFollow!` : `Follow`)}*/}
+            {/*</button>*/}
         </div>
     );
 };

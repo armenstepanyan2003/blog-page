@@ -1,6 +1,7 @@
 import { apiUrls } from "@/config/apiConfig";
 import { Blog } from "@/constants";
 import { getAccessToken } from "@/utils/actions";
+import page from "@/app/login/page";
 
 class ApiService {
     constructor() {
@@ -244,6 +245,24 @@ class ApiService {
             console.log(error);
         }
     };
+
+    async getAllUsers(page, limit, search) {
+        const token = localStorage.getItem('token');
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users?page=${page}&limit=${limit}&search=${search}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+                cache: "no-store",
+            });
+            const data = await res.json();
+            return data;
+        } catch (error) {
+            console.log(`Getting All Users Error: ${error}`);
+        }
+    }
 }
 
 
