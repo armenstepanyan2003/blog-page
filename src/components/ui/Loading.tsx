@@ -1,4 +1,4 @@
-import {LoadingProps} from "@/constants";
+import { LoadingProps } from "@/constants";
 
 const loadingSize = {
     small: "w-14 h-14",

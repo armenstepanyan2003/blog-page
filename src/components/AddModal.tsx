@@ -1,8 +1,8 @@
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 import Modal from "@/components/ui/Modal";
 import Form from "@/components/ui/Form";
 import Loading from "@/components/ui/Loading";
-import {AddModalProps, FormField} from "@/constants";
+import { AddModalProps, FormField } from "@/constants";
 
 const AddModal: React.FC<AddModalProps> = ({ visible, title, onCancel, onAdd }) => {
     const addFormRef = useRef<HTMLFormElement>(null);
@@ -13,12 +13,6 @@ const AddModal: React.FC<AddModalProps> = ({ visible, title, onCancel, onAdd }) 
             placeholder: "Enter title",
             name: "title",
             label: "Title",
-            type: "text",
-        },
-        {
-            placeholder: "Enter author",
-            name: "author",
-            label: "Author",
             type: "text",
         },
         {
@@ -34,8 +28,6 @@ const AddModal: React.FC<AddModalProps> = ({ visible, title, onCancel, onAdd }) 
         await addFormRef?.current?.submit();
         setIsLoading(false);
     }
-
-    console.log(isLoading)
 
     return (
         <>
