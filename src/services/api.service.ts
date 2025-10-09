@@ -63,8 +63,8 @@ class ApiService {
         const finalUrl = `${apiUrls.MOCK_API}/blogs`;
 
         try {
-            const res = await fetch(finalUrl, { method: "POST" , body: JSON.stringify(blog), headers: {"Content-Type": "application/json"}});
 
+            const res = await fetch(finalUrl, { method: "POST" , body: JSON.stringify(blog), headers: {"Content-Type": "application/json"}});
             const data = await res.json();
 
             return data;

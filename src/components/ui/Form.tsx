@@ -6,7 +6,7 @@ const Form: React.FC<FormProps> = ({ form, onAdd, initialValues, ref }) => {
 
     const [errors, setErrors] = useState<Record<string, string>>({});
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!formRef.current) return;
 
         const formData = new FormData(formRef.current);
@@ -22,7 +22,7 @@ const Form: React.FC<FormProps> = ({ form, onAdd, initialValues, ref }) => {
         setErrors(newErrors);
 
         if (Object.keys(newErrors).length === 0) {
-            onAdd(dataObject);
+            await onAdd(dataObject);
         }
     };
 

@@ -45,7 +45,7 @@ export interface DeleteModalProps {
 export interface EditModalProps {
     title: string;
     visible: boolean;
-    onOk: (values: Partial<Blog>) => void;
+    onEdit: (values: Blog) => Promise<void>;
     onCancel: () => void;
     blog: Blog;
 }
@@ -55,6 +55,7 @@ export interface ModalProps {
     title: string;
     onOk: () => void;
     onCancel: () => void;
+    isLoading: boolean;
     children: React.ReactNode;
 }
 

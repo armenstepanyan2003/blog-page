@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import {Blog} from "@/constants";
+import { Blog } from "@/constants";
 
 const BlogCard: React.FC<Blog> = ({ id, author, title, description }) => {
     return (
