@@ -4,6 +4,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import SearchProvider from "@/providers/SearchProvider";
 import UserProvider from "@/providers/UserProvider";
+import NotificationProvider from "@/providers/NotificationProvider";
+import SocketProvider from "@/providers/SocketProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,12 +32,16 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-      <SearchProvider>
-          <UserProvider>
-              <ToastContainer />
-              {children}
-          </UserProvider>
-      </SearchProvider>
+      <NotificationProvider>
+          <SearchProvider>
+              <UserProvider>
+                  <SocketProvider>
+                      <ToastContainer />
+                      {children}
+                  </SocketProvider>
+              </UserProvider>
+          </SearchProvider>
+      </NotificationProvider>
       </body>
     </html>
   );

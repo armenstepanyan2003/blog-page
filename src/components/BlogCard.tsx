@@ -17,7 +17,7 @@ const BlogCard: React.FC<Blog> =({ id, slug, user, title, description, tags, pos
     }
 
     return (
-        <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col gap-3 border border-gray-100">
+        <div className="relative bg-white rounded-2xl shadow-lg p-6 flex flex-col gap-3 border border-gray-100">
             <div className="absolute top-3 right-3 flex items-center gap-1">
                 <button onClick={() => handleToggleLike(id)}>
                     <svg xmlns="http://www.w3.org/2000/svg"

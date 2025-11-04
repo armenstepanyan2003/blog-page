@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react';
+import React, {use, useEffect, useState} from 'react';
 import { useSearchProvider } from "@/providers/SearchProvider";
 import { usePathname, useRouter } from "next/navigation";
 import { deleteAccessToken } from "@/utils/actions";
@@ -8,6 +8,7 @@ import Button from "@/components/ui/Button";
 import DropDown from "@/components/ui/DropDown";
 import UsersList from "@/components/UsersList";
 import { useUserProvider } from "@/providers/UserProvider";
+import Notification from "@/components/Notification";
 
 const Header = () => {
     const { search, setSearch } = useSearchProvider();
@@ -18,16 +19,11 @@ const Header = () => {
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-        const userData = localStorage.getItem("user");
 
         if (!token) {
             router.push("/login");
         }
-
-        if (userData) {
-            setUser(JSON.parse(userData));
-        }
-    }, [router, setUser]);
+    }, [router]);
 
     const handleLogOut = async () => {
         localStorage.removeItem("token");
@@ -70,10 +66,12 @@ const Header = () => {
 
 
             <div className="flex items-center gap-4 ml-6">
+                <Notification />
+
                 {user && (
                     <div className="flex items-center gap-2">
                         <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-lg font-semibold text-gray-700">
-                            {user.firstName[0]}
+                            {user?.firstName?.[0]}
                         </div>
                         <DropDown
                             trigger="click"

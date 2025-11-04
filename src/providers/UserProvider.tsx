@@ -1,14 +1,23 @@
 'use client';
 
-import { createContext, useContext, useState } from "react";
+import {createContext, FC, ReactNode, useContext, useEffect, useState} from "react";
 
 export const UserProviderContext = createContext(null);
 
-const UserProvider = ({ children }) => {
-    const [user, setUser] = useState("");
+const UserProvider: FC<{
+    children: ReactNode;
+}> = ({children}) => {
+    const [user, setUser] = useState({});
+
+    useEffect(() => {
+        if (window !== undefined) {
+            const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+            setUser(currentUser);
+        }
+    }, [setUser]);
 
     return (
-        <UserProviderContext.Provider value={{ user, setUser }}>
+        <UserProviderContext.Provider value={{user, setUser}}>
             {children}
         </UserProviderContext.Provider>
     );
@@ -16,7 +25,7 @@ const UserProvider = ({ children }) => {
 
 export const useUserProvider = () => {
     const context = useContext(UserProviderContext)
-    if(!context){
+    if (!context) {
         throw new Error("useUserProvider not found")
     }
     return context

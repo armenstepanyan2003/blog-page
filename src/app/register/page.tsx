@@ -23,6 +23,12 @@ const Register = () => {
             type: "text",
         },
         {
+            placeholder: "Enter LatsName",
+            name: "lastName",
+            label: "LastName",
+            type: "text",
+        },
+        {
             placeholder: "Enter Email",
             name: "email",
             label: "Email",

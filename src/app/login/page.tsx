@@ -6,11 +6,13 @@ import Link from "next/link";
 import Form from "@/components/ui/Form";
 import Button from "@/components/ui/Button";
 import { setAccessToken } from "@/utils/actions";
+import { useUserProvider } from "@/providers/UserProvider";
 
 const Login = () => {
     const router = useRouter();
     const [error, setError] = useState<string>("");
     const loginRef = useRef<HTMLFormElement>(null);
+    const { setUser } = useUserProvider();
 
     const handleOk = async () => {
         await loginRef?.current?.submit();
@@ -44,6 +46,7 @@ const Login = () => {
             if (res.ok) {
                 localStorage.setItem("token", data.token);
                 localStorage.setItem("user", JSON.stringify(data.user));
+                setUser(data.user);
                 await setAccessToken(data.token);
 
                 router.push("/posts");
@@ -68,6 +71,15 @@ const Login = () => {
                 <h1 className="text-3xl font-bold text-center mb-6 text-blue-800">LOGIN</h1>
                 {error && <p className="text-red-600 mb-4 text-center">{error}</p>}
                 <Form form={loginForm} onAdd={handleLogin} ref={loginRef}/>
+                <div className="flex justify-center mt-4">
+                    <a
+                        href="http://localhost:5000/auth/google"
+                        className="bg-blue-500 text-white px-4 py-2 rounded"
+                    >
+                        Login with Google
+                    </a>
+                </div>
+
                 <div className="flex justify-center mt-4">
                     <Button title="SIGN IN" onClick={handleOk}/>
                 </div>

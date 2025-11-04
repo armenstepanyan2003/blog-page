@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import BackButton from "@/components/BackButton";
 
 export default function FollowingPage() {
     const [posts, setPosts] = useState<any[]>([]);

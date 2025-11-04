@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Link from "next/link";
-import slugify from "slugify";
+import { useRouter } from "next/navigation";
 
 const placementStyle = {
     bottom: "top-full left-0 mt-2 ",
@@ -13,6 +12,7 @@ const placementStyle = {
 
 const Dropdown = ({trigger = "hover", item1 = "", item2 = "", placement = "bottom", title = "DropDown", user}: DropdownProps) => {
     const [open, setOpen] = useState(false);
+    const router = useRouter();
 
     const toggle = () => setOpen(prev => !prev);
     let additionalProps = {};
@@ -45,21 +45,28 @@ const Dropdown = ({trigger = "hover", item1 = "", item2 = "", placement = "botto
             </button>
 
             {open && (
-                <div className={`absolute w-40 bg-white border rounded shadow-md z-50 ${placementStyle[placement]}` }>
-                    <Link
-                        href={`/profile/${user.slug}`}
-                        onClick={() => setOpen(false)}
-                        className="px-4 py-2  cursor-pointer"
+                <div
+                    className={`absolute w-40 bg-white border rounded shadow-md z-50 ${placementStyle[placement]}`}
+                >
+                    <button
+                        onClick={() => {
+                            router.push(`/profile/${user.slug}`);
+                            setOpen(false);
+                        }}
+                        className="block w-full text-left px-4 py-2 cursor-pointer hover:bg-gray-100"
                     >
                         {item1}
-                    </Link>
-                    <div
-                        className="px-4 py-2  cursor-pointer"
-                        onClick={() => setOpen(false)}
+                    </button>
+
+                    <button
+                        onClick={() => {
+                            router.push('/settings');
+                            setOpen(false);
+                        }}
+                        className="block w-full text-left px-4 py-2 cursor-pointer hover:bg-gray-100"
                     >
                         {item2}
-                    </div>
-
+                    </button>
                 </div>
             )}
         </div>

@@ -12,6 +12,10 @@ const SideBar = () => {
         { href: "/posts/likedPosts", label: "Liked Posts" },
         { href: "/users/followers", label: "Followers" },
         { href: "/users/following", label: "Following" },
+        { href: "/users/myChats", label: "My Chats" },
+        { href: "/subscriptions", label: "Subscriptions" },
+        { href: "/products", label: "Products" },
+        { href: "/orders", label: "Orders" },
     ];
 
     return (

@@ -3,7 +3,7 @@ import Modal from "@/components/ui/Modal";
 import Loading from "@/components/ui/Loading";
 import { DeleteModalProps } from "@/constants";
 
-const DeleteModal: React.FC<DeleteModalProps> = ({ visible, onOk, title,onCancel }) => {
+const DeleteModal: React.FC<DeleteModalProps> = ({ visible, onOk, title, onCancel }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleOk = async () => {
